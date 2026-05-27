@@ -8,83 +8,129 @@ document.addEventListener("DOMContentLoaded", () => {
   const faqItems = document.querySelectorAll(".faq-item");
   const heroBg = document.querySelector(".hero__bg");
 
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  const hideLoader = () => {
+    if (!loader) return;
+    loader.classList.add("hide");
+  };
+
   window.addEventListener(
     "load",
     () => {
-      setTimeout(() => loader?.classList.add("hide"), 320);
+      window.requestAnimationFrame(() => {
+        setTimeout(hideLoader, 160);
+      });
     },
     { once: true },
   );
 
+  setTimeout(hideLoader, 1800);
+
   const handleHeader = () => {
-    header?.classList.toggle("scrolled", window.scrollY > 20);
+    if (!header) return;
+    header.classList.toggle("scrolled", window.scrollY > 20);
   };
 
   handleHeader();
   window.addEventListener("scroll", handleHeader, { passive: true });
 
   const closeMenu = () => {
-    siteNav?.classList.remove("active");
+    if (!siteNav || !menuToggle) return;
+
+    siteNav.classList.remove("active");
     document.body.classList.remove("menu-open");
-    menuToggle?.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menu");
+  };
+
+  const openMenu = () => {
+    if (!siteNav || !menuToggle) return;
+
+    siteNav.classList.add("active");
+    document.body.classList.add("menu-open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle.setAttribute("aria-label", "Fechar menu");
   };
 
   if (menuToggle && siteNav) {
     menuToggle.addEventListener("click", () => {
       const isOpen = siteNav.classList.contains("active");
-      siteNav.classList.toggle("active", !isOpen);
-      document.body.classList.toggle("menu-open", !isOpen);
-      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    navLinks.forEach((link) => link.addEventListener("click", closeMenu));
+    navLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
+      if (event.key === "Escape") {
+        closeMenu();
+      }
     });
 
     document.addEventListener("click", (event) => {
       const target = event.target;
-      if (!(target instanceof Element)) return;
 
-      if (!siteNav.contains(target) && !menuToggle.contains(target)) {
+      if (!(target instanceof Element)) return;
+      if (!siteNav.classList.contains("active")) return;
+
+      const clickedInsideMenu = siteNav.contains(target);
+      const clickedToggle = menuToggle.contains(target);
+
+      if (!clickedInsideMenu && !clickedToggle) {
         closeMenu();
       }
     });
   }
 
-  if ("IntersectionObserver" in window) {
+  if ("IntersectionObserver" in window && !prefersReducedMotion) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
+
           entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -60px 0px",
+        threshold: 0.14,
+        rootMargin: "0px 0px -48px 0px",
       },
     );
 
-    revealElements.forEach((element) => revealObserver.observe(element));
+    revealElements.forEach((element, index) => {
+      element.style.transitionDelay = `${Math.min(index * 35, 220)}ms`;
+      revealObserver.observe(element);
+    });
   } else {
-    revealElements.forEach((element) => element.classList.add("visible"));
+    revealElements.forEach((element) => {
+      element.classList.add("visible");
+      element.style.transitionDelay = "0ms";
+    });
   }
 
   faqItems.forEach((item) => {
     const button = item.querySelector(".faq-question");
+
     if (!button) return;
 
     button.addEventListener("click", () => {
       const isActive = item.classList.contains("active");
 
       faqItems.forEach((faq) => {
+        const faqButton = faq.querySelector(".faq-question");
+
         faq.classList.remove("active");
-        faq
-          .querySelector(".faq-question")
-          ?.setAttribute("aria-expanded", "false");
+        faqButton?.setAttribute("aria-expanded", "false");
       });
 
       if (!isActive) {
@@ -97,28 +143,51 @@ document.addEventListener("DOMContentLoaded", () => {
   let ticking = false;
 
   const handleParallax = () => {
-    if (!heroBg || window.innerWidth < 768) return;
+    if (!heroBg || prefersReducedMotion || window.innerWidth < 768) return;
 
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        heroBg.style.transform = `translateY(${window.scrollY * 0.08}px)`;
-        ticking = false;
-      });
+    if (ticking) return;
 
-      ticking = true;
-    }
+    ticking = true;
+
+    window.requestAnimationFrame(() => {
+      const offset = Math.min(window.scrollY * 0.06, 48);
+      heroBg.style.transform = `translate3d(0, ${offset}px, 0)`;
+      ticking = false;
+    });
   };
 
   window.addEventListener("scroll", handleParallax, { passive: true });
 
+  const markImageAsLoaded = (img) => {
+    img.classList.add("loaded");
+  };
+
   document.querySelectorAll("img").forEach((img) => {
     if (img.complete) {
-      img.classList.add("loaded");
+      markImageAsLoaded(img);
       return;
     }
 
-    img.addEventListener("load", () => img.classList.add("loaded"), {
+    img.addEventListener("load", () => markImageAsLoaded(img), {
+      once: true,
+    });
+
+    img.addEventListener("error", () => markImageAsLoaded(img), {
       once: true,
     });
   });
+
+  window.addEventListener(
+    "resize",
+    () => {
+      if (window.innerWidth > 920) {
+        closeMenu();
+      }
+
+      if (window.innerWidth < 768 && heroBg) {
+        heroBg.style.transform = "";
+      }
+    },
+    { passive: true },
+  );
 });

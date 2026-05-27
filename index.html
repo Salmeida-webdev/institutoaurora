@@ -16,8 +16,9 @@
     />
     <meta name="author" content="Segundo Almeida" />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1b2b24" />
 
-    <link rel="canonical" href="https://institutoaurora.netlify.app/" />
+    <link rel="canonical" href="https://institutopsiaurora.netlify.app/" />
 
     <meta
       property="og:title"
@@ -28,10 +29,20 @@
       content="Terapia online com acolhimento, sigilo e uma experiência emocional premium."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://institutoaurora.netlify.app/" />
+    <meta property="og:url" content="https://institutopsiaurora.netlify.app/" />
     <meta property="og:image" content="./assets/images/seo/og-cover.webp" />
+    <meta property="og:locale" content="pt_BR" />
 
-    <meta name="theme-color" content="#1b2b24" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Instituto Aurora | Psicologia & Terapia Online"
+    />
+    <meta
+      name="twitter:description"
+      content="Terapia online com acolhimento, sigilo e uma experiência emocional premium."
+    />
+    <meta name="twitter:image" content="./assets/images/seo/og-cover.webp" />
 
     <link rel="icon" type="image/png" href="./assets/logo/favicon.png" />
     <link rel="apple-touch-icon" href="./assets/logo/apple-touch-icon.png" />
@@ -48,7 +59,7 @@
       rel="preload"
       as="image"
       href="./assets/images/hero/hero-aurora.webp"
-      media="(min-width: 768px)"
+      fetchpriority="high"
     />
 
     <link rel="stylesheet" href="./style.css" />
@@ -56,20 +67,66 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Instituto Aurora Psicologia & Terapia Online",
-        "description": "Psicologia e terapia online com atendimento acolhedor, sigiloso e humanizado.",
-        "image": "https://institutoaurora.netlify.app/assets/images/seo/og-cover.webp",
-        "url": "https://institutoaurora.netlify.app/",
-        "telephone": "+55 83 99832-6680",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Av. Beira Mar, 2480 - Meireles",
-          "addressLocality": "Fortaleza",
-          "addressRegion": "CE",
-          "addressCountry": "BR"
-        },
-        "sameAs": ["https://www.instagram.com/institutoaurora.psi"]
+        "@graph": [
+          {
+            "@type": "LocalBusiness",
+            "@id": "https://institutopsiaurora.netlify.app/#localbusiness",
+            "name": "Instituto Aurora Psicologia & Terapia Online",
+            "description": "Psicologia e terapia online com atendimento acolhedor, sigiloso e humanizado.",
+            "image": "https://institutopsiaurora.netlify.app/assets/images/seo/og-cover.webp",
+            "url": "https://institutopsiaurora.netlify.app/",
+            "telephone": "+55 83 99832-6680",
+            "priceRange": "$$",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Av. Beira Mar, 2480 - Meireles",
+              "addressLocality": "Fortaleza",
+              "addressRegion": "CE",
+              "addressCountry": "BR"
+            },
+            "sameAs": ["https://www.instagram.com/institutoaurora.psi"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://institutopsiaurora.netlify.app/#website",
+            "url": "https://institutopsiaurora.netlify.app/",
+            "name": "Instituto Aurora",
+            "inLanguage": "pt-BR",
+            "publisher": {
+              "@id": "https://institutopsiaurora.netlify.app/#localbusiness"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://institutopsiaurora.netlify.app/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Como funciona a terapia online?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "As sessões acontecem por videochamada em ambiente seguro, com privacidade e orientação para um espaço reservado."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Como faço para agendar?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "O contato inicial pode ser feito pelo WhatsApp. Depois disso, são combinados horário, formato e orientações iniciais."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Preciso saber exatamente o que falar?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Não. A terapia é um espaço de construção. Você pode começar pelo que está sentindo, vivendo ou tentando entender."
+                }
+              }
+            ]
+          }
+        ]
       }
     </script>
   </head>
@@ -83,6 +140,8 @@
           src="./assets/icons/ui/ui/loader-mark.svg"
           alt=""
           class="loader__icon"
+          width="56"
+          height="56"
         />
         <span class="loader__text">Instituto Aurora</span>
       </div>
@@ -92,7 +151,12 @@
       <div class="container">
         <div class="header-wrapper">
           <a href="#inicio" class="logo" aria-label="Instituto Aurora - Início">
-            <img src="./assets/logo/logo-aurora.png" alt="Instituto Aurora" />
+            <img
+              src="./assets/logo/logo-aurora.png"
+              alt="Instituto Aurora"
+              width="190"
+              height="52"
+            />
           </a>
 
           <nav class="site-nav" id="siteNav" aria-label="Navegação principal">
@@ -122,7 +186,12 @@
             aria-controls="siteNav"
             aria-expanded="false"
           >
-            <img src="./assets/icons/ui/navigation/menu.svg" alt="" />
+            <img
+              src="./assets/icons/ui/navigation/menu.svg"
+              alt=""
+              width="24"
+              height="24"
+            />
           </button>
         </div>
       </div>
@@ -131,10 +200,13 @@
     <main id="main">
       <section class="hero" id="inicio" aria-labelledby="hero-title">
         <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__light hero__light--one" aria-hidden="true"></div>
+        <div class="hero__light hero__light--two" aria-hidden="true"></div>
+        <div class="hero__grain" aria-hidden="true"></div>
 
         <div class="container">
           <div class="hero-grid">
-            <div class="hero-content reveal">
+            <div class="hero-content reveal reveal-hero">
               <span class="section-label">Psicologia online premium</span>
 
               <h1 id="hero-title">
@@ -162,22 +234,37 @@
                   Conhecer especialidades
                 </a>
               </div>
+
+              <div class="hero-trust" aria-label="Diferenciais do atendimento">
+                <span>Sigilo profissional</span>
+                <span>Atendimento online</span>
+                <span>Escuta humanizada</span>
+              </div>
             </div>
 
-            <div class="hero-visual reveal">
-              <img
-                src="./assets/images/hero/hero-aurora.webp"
-                alt="Ambiente acolhedor e sofisticado representando terapia online"
-                class="hero-image"
-                width="680"
-                height="820"
-                loading="eager"
-                decoding="async"
-              />
+            <div class="hero-visual reveal reveal-visual">
+              <div class="hero-visual__frame">
+                <img
+                  src="./assets/images/hero/hero-aurora.webp"
+                  alt="Ambiente acolhedor e sofisticado representando terapia online"
+                  class="hero-image"
+                  width="680"
+                  height="820"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
 
-              <div class="hero-card">
-                <h3>Escuta qualificada</h3>
-                <p>Terapia com presença, leveza e direção emocional.</p>
+                <div class="hero-card hero-card--main">
+                  <span>01</span>
+                  <h3>Escuta qualificada</h3>
+                  <p>Terapia com presença, leveza e direção emocional.</p>
+                </div>
+
+                <div class="hero-card hero-card--soft" aria-hidden="true">
+                  <span>Online</span>
+                  <p>Privacidade, acolhimento e continuidade emocional.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -202,14 +289,17 @@
           </div>
 
           <div class="specialties-grid">
-            <article class="specialty-card reveal">
+            <article class="specialty-card specialty-card--wide reveal">
               <img
                 src="./assets/images/specialties/anxiety.webp"
                 alt="Ansiedade"
+                width="520"
+                height="360"
                 loading="lazy"
                 decoding="async"
               />
               <div class="specialty-card__content">
+                <span>01</span>
                 <h3>Ansiedade</h3>
                 <p>
                   Apoio emocional para pensamentos acelerados, tensão constante
@@ -222,10 +312,13 @@
               <img
                 src="./assets/images/specialties/burnout.webp"
                 alt="Burnout"
+                width="360"
+                height="280"
                 loading="lazy"
                 decoding="async"
               />
               <div class="specialty-card__content">
+                <span>02</span>
                 <h3>Burnout</h3>
                 <p>
                   Reconstrução emocional para períodos intensos de cobrança,
@@ -238,10 +331,13 @@
               <img
                 src="./assets/images/specialties/career-pressure.webp"
                 alt="Pressão profissional"
+                width="360"
+                height="280"
                 loading="lazy"
                 decoding="async"
               />
               <div class="specialty-card__content">
+                <span>03</span>
                 <h3>Pressão profissional</h3>
                 <p>
                   Terapia para lidar com sobrecarga, insegurança, autocobrança e
@@ -254,10 +350,13 @@
               <img
                 src="./assets/images/specialties/emotional-balance.webp"
                 alt="Equilíbrio emocional"
+                width="360"
+                height="280"
                 loading="lazy"
                 decoding="async"
               />
               <div class="specialty-card__content">
+                <span>04</span>
                 <h3>Equilíbrio emocional</h3>
                 <p>
                   Construção de estabilidade interna para lidar melhor com
@@ -270,10 +369,13 @@
               <img
                 src="./assets/images/specialties/mindfulness.webp"
                 alt="Presença e autocuidado"
+                width="360"
+                height="280"
                 loading="lazy"
                 decoding="async"
               />
               <div class="specialty-card__content">
+                <span>05</span>
                 <h3>Presença e autocuidado</h3>
                 <p>
                   Práticas terapêuticas para desenvolver atenção, pausa,
@@ -286,10 +388,13 @@
               <img
                 src="./assets/images/specialties/relationships.webp"
                 alt="Relacionamentos"
+                width="360"
+                height="280"
                 loading="lazy"
                 decoding="async"
               />
               <div class="specialty-card__content">
+                <span>06</span>
                 <h3>Relacionamentos</h3>
                 <p>
                   Espaço seguro para compreender vínculos, conflitos,
@@ -302,10 +407,13 @@
               <img
                 src="./assets/images/specialties/selfesteem.webp"
                 alt="Autoestima"
+                width="360"
+                height="280"
                 loading="lazy"
                 decoding="async"
               />
               <div class="specialty-card__content">
+                <span>07</span>
                 <h3>Autoestima</h3>
                 <p>
                   Reconstrução de autoconfiança, identidade e segurança
@@ -318,12 +426,15 @@
               <img
                 src="./assets/images/specialties/therapy-session.webp"
                 alt="Terapia para adultos"
+                width="520"
+                height="360"
                 loading="lazy"
                 decoding="async"
               />
               <div
                 class="specialty-card__content specialty-card__content--light"
               >
+                <span>Essencial</span>
                 <h3>Terapia para adultos</h3>
                 <p>
                   Atendimento online para quem deseja amadurecer emocionalmente
@@ -339,21 +450,27 @@
         <div class="container">
           <div class="about-grid">
             <div class="about-images reveal">
-              <img
-                src="./assets/images/about/about-aurora.webp"
-                alt="Espaço visual sofisticado do Instituto Aurora"
-                class="about-main"
-                loading="lazy"
-                decoding="async"
-              />
+              <div class="about-image-shell">
+                <img
+                  src="./assets/images/about/about-aurora.webp"
+                  alt="Espaço visual sofisticado do Instituto Aurora"
+                  class="about-main"
+                  width="560"
+                  height="620"
+                  loading="lazy"
+                  decoding="async"
+                />
 
-              <img
-                src="./assets/images/about/about-portrait.webp"
-                alt="Retrato editorial representando profissional de psicologia"
-                class="about-floating"
-                loading="lazy"
-                decoding="async"
-              />
+                <img
+                  src="./assets/images/about/about-portrait.webp"
+                  alt="Retrato editorial representando profissional de psicologia"
+                  class="about-floating"
+                  width="320"
+                  height="380"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
 
             <div class="about-content reveal">
@@ -379,17 +496,32 @@
 
               <div class="about-checks">
                 <div class="check-item">
-                  <img src="./assets/icons/ui/ui/check.svg" alt="" />
+                  <img
+                    src="./assets/icons/ui/ui/check.svg"
+                    alt=""
+                    width="20"
+                    height="20"
+                  />
                   <span>Atendimento ético, sigiloso e humanizado.</span>
                 </div>
 
                 <div class="check-item">
-                  <img src="./assets/icons/ui/ui/check.svg" alt="" />
+                  <img
+                    src="./assets/icons/ui/ui/check.svg"
+                    alt=""
+                    width="20"
+                    height="20"
+                  />
                   <span>Experiência online leve, organizada e segura.</span>
                 </div>
 
                 <div class="check-item">
-                  <img src="./assets/icons/ui/ui/check.svg" alt="" />
+                  <img
+                    src="./assets/icons/ui/ui/check.svg"
+                    alt=""
+                    width="20"
+                    height="20"
+                  />
                   <span
                     >Comunicação clara antes, durante e após o
                     atendimento.</span
@@ -447,21 +579,27 @@
             </div>
 
             <div class="therapy-image reveal">
-              <img
-                src="./assets/images/therapy/online-therapy.webp"
-                alt="Sessão de terapia online em ambiente calmo"
-                class="therapy-main-image"
-                loading="lazy"
-                decoding="async"
-              />
+              <div class="therapy-image__shell">
+                <img
+                  src="./assets/images/therapy/online-therapy.webp"
+                  alt="Sessão de terapia online em ambiente calmo"
+                  class="therapy-main-image"
+                  width="560"
+                  height="620"
+                  loading="lazy"
+                  decoding="async"
+                />
 
-              <img
-                src="./assets/images/mockups/mobile-mockup.webp"
-                alt="Mockup mobile do Instituto Aurora"
-                class="therapy-mockup"
-                loading="lazy"
-                decoding="async"
-              />
+                <img
+                  src="./assets/images/mockups/mobile-mockup.webp"
+                  alt="Mockup mobile do Instituto Aurora"
+                  class="therapy-mockup"
+                  width="260"
+                  height="520"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -482,6 +620,7 @@
 
           <div class="benefits-grid">
             <article class="benefit-card reveal">
+              <span>01</span>
               <h3>Privacidade</h3>
               <p>
                 Atendimento online seguro, reservado e conduzido com cuidado
@@ -489,7 +628,8 @@
               </p>
             </article>
 
-            <article class="benefit-card reveal">
+            <article class="benefit-card benefit-card--center reveal">
+              <span>02</span>
               <h3>Flexibilidade</h3>
               <p>
                 Sessões adaptadas à sua rotina, sem perder qualidade, presença e
@@ -498,6 +638,7 @@
             </article>
 
             <article class="benefit-card reveal">
+              <span>03</span>
               <h3>Acolhimento</h3>
               <p>
                 Escuta humana, profissional e sem julgamentos para lidar com
@@ -526,6 +667,8 @@
               <img
                 src="./assets/images/testimonials/testimonial-01.webp"
                 alt="Depoimento sobre terapia online"
+                width="360"
+                height="270"
                 loading="lazy"
                 decoding="async"
               />
@@ -537,10 +680,12 @@
               <span>Atendimento online</span>
             </article>
 
-            <article class="testimonial-card reveal">
+            <article class="testimonial-card testimonial-card--featured reveal">
               <img
                 src="./assets/images/testimonials/testimonial-02.webp"
                 alt="Depoimento sobre saúde emocional"
+                width="360"
+                height="270"
                 loading="lazy"
                 decoding="async"
               />
@@ -556,6 +701,8 @@
               <img
                 src="./assets/images/testimonials/testimonial-03.webp"
                 alt="Depoimento sobre acolhimento psicológico"
+                width="360"
+                height="270"
                 loading="lazy"
                 decoding="async"
               />
@@ -576,6 +723,10 @@
             <div class="faq-content reveal">
               <span class="section-label">FAQ</span>
               <h2 id="faq-title">Perguntas frequentes.</h2>
+              <p>
+                Respostas simples para começar o processo com mais segurança,
+                clareza e tranquilidade.
+              </p>
             </div>
 
             <div class="faq-list reveal">
@@ -639,12 +790,14 @@
               <span class="section-label">Comece com leveza</span>
 
               <h2 id="final-cta-title">
-                Seu cuidado emocional pode começar com uma conversa simples.
+                Você não precisa organizar tudo sozinho antes de pedir ajuda.
               </h2>
 
               <p>
-                Fale pelo WhatsApp e receba as primeiras orientações para
-                iniciar sua jornada terapêutica online com segurança e clareza.
+                Uma primeira conversa pode ser o início de um processo mais
+                calmo, seguro e consciente. Fale pelo WhatsApp e receba as
+                orientações iniciais para começar sua jornada terapêutica
+                online.
               </p>
 
               <a
@@ -657,10 +810,12 @@
               </a>
             </div>
 
-            <div class="final-cta-image">
+            <div class="final-cta-image" aria-hidden="true">
               <img
                 src="./assets/images/cta/final-cta.webp"
-                alt="Imagem premium representando cuidado emocional"
+                alt=""
+                width="420"
+                height="460"
                 loading="lazy"
                 decoding="async"
               />
@@ -676,6 +831,8 @@
               <img
                 src="./assets/images/contact/contact-section.webp"
                 alt="Contato Instituto Aurora"
+                width="560"
+                height="620"
                 loading="lazy"
                 decoding="async"
               />
@@ -700,14 +857,18 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
-                    src="./assets/icons/ui/social/whatsapp-premium.webp"
-                    alt="WhatsApp premium"
-                  />
-                  <div>
+                  <span class="contact-social__icon" aria-hidden="true">
+                    <img
+                      src="./assets/icons/ui/social/whatsapp-premium.webp"
+                      alt=""
+                      width="48"
+                      height="48"
+                    />
+                  </span>
+                  <span class="contact-social__text">
                     <strong>WhatsApp</strong>
                     <span>(83) 99832-6680</span>
-                  </div>
+                  </span>
                 </a>
 
                 <a
@@ -716,14 +877,18 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
-                    src="./assets/icons/ui/social/instagram-premium.webp"
-                    alt="Instagram premium"
-                  />
-                  <div>
+                  <span class="contact-social__icon" aria-hidden="true">
+                    <img
+                      src="./assets/icons/ui/social/instagram-premium.webp"
+                      alt=""
+                      width="48"
+                      height="48"
+                    />
+                  </span>
+                  <span class="contact-social__text">
                     <strong>Instagram</strong>
                     <span>@institutoaurora.psi</span>
-                  </div>
+                  </span>
                 </a>
               </div>
 
@@ -744,6 +909,10 @@
               src="./assets/logo/logo-aurora-white.png"
               alt="Instituto Aurora"
               class="footer-logo"
+              width="210"
+              height="64"
+              loading="lazy"
+              decoding="async"
             />
 
             <p>
@@ -793,7 +962,12 @@
       rel="noopener noreferrer"
       aria-label="Chamar Instituto Aurora no WhatsApp"
     >
-      <img src="./assets/icons/ui/social/whatsapp.svg" alt="" />
+      <img
+        src="./assets/icons/ui/social/whatsapp.svg"
+        alt=""
+        width="34"
+        height="34"
+      />
     </a>
 
     <script src="./script.js" defer></script>
