@@ -1,0 +1,25 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="auroraMenu" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D1A248"></stop>
+      <stop offset="0.5" stop-color="#F3D78A"></stop>
+      <stop offset="1" stop-color="#A86B1B"></stop>
+    </linearGradient>
+
+    <filter id="menuGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.3" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#menuGlow)">
+    <path d="M8 11H32" stroke="url(#auroraMenu)" stroke-width="3" stroke-linecap="round"></path>
+
+    <path d="M8 20H32" stroke="url(#auroraMenu)" stroke-width="3" stroke-linecap="round"></path>
+
+    <path d="M8 29H32" stroke="url(#auroraMenu)" stroke-width="3" stroke-linecap="round"></path>
+  </g>
+</svg>

@@ -1,0 +1,46 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="auroraLotus" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D6A74D"></stop>
+      <stop offset="0.5" stop-color="#F4DE98"></stop>
+      <stop offset="1" stop-color="#A66A19"></stop>
+    </linearGradient>
+
+    <filter id="lotusGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#lotusGlow)">
+    <!-- pétala central -->
+    <path d="M32 16C36 22 39 28 39 36C39 44 35 49 32 52C29 49 25 44 25 36C25 28 28 22 32 16Z" stroke="url(#auroraLotus)" stroke-width="2" stroke-linejoin="round"></path>
+
+    <!-- pétala esquerda -->
+    <path d="M24 23C28 26 31 31 32 37C26 37 21 35 17 31C14 28 13 24 13 21C17 20 21 20 24 23Z" stroke="url(#auroraLotus)" stroke-width="2" stroke-linejoin="round"></path>
+
+    <!-- pétala direita -->
+    <path d="M40 23C43 20 47 20 51 21C51 24 50 28 47 31C43 35 38 37 32 37C33 31 36 26 40 23Z" stroke="url(#auroraLotus)" stroke-width="2" stroke-linejoin="round"></path>
+
+    <!-- pétala inferior esquerda -->
+    <path d="M20 34C25 35 29 38 32 43C26 45 20 45 15 42C12 40 10 37 9 34C13 33 17 33 20 34Z" stroke="url(#auroraLotus)" stroke-width="2" stroke-linejoin="round"></path>
+
+    <!-- pétala inferior direita -->
+    <path d="M44 34C47 33 51 33 55 34C54 37 52 40 49 42C44 45 38 45 32 43C35 38 39 35 44 34Z" stroke="url(#auroraLotus)" stroke-width="2" stroke-linejoin="round"></path>
+
+    <!-- base -->
+    <path d="M22 48C25 50 28 51 32 51C36 51 39 50 42 48" stroke="url(#auroraLotus)" stroke-width="2" stroke-linecap="round"></path>
+
+    <!-- estrelas -->
+    <path d="M32 8L33 11L36 12L33 13L32 16L31 13L28 12L31 11L32 8Z" fill="url(#auroraLotus)"></path>
+
+    <path d="M10 30L11 32L13 33L11 34L10 36L9 34L7 33L9 32L10 30Z" fill="url(#auroraLotus)"></path>
+
+    <path d="M54 30L55 32L57 33L55 34L54 36L53 34L51 33L53 32L54 30Z" fill="url(#auroraLotus)"></path>
+
+    <path d="M32 54L33 56L35 57L33 58L32 60L31 58L29 57L31 56L32 54Z" fill="url(#auroraLotus)"></path>
+  </g>
+</svg>

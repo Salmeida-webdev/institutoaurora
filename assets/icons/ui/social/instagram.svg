@@ -1,0 +1,27 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="auroraInstagram" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D5A54B"></stop>
+      <stop offset="0.5" stop-color="#F4D98B"></stop>
+      <stop offset="1" stop-color="#A66A18"></stop>
+    </linearGradient>
+
+    <filter id="instagramGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.4" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#instagramGlow)">
+    <rect x="5" y="5" width="38" height="38" rx="11" stroke="url(#auroraInstagram)" stroke-width="2.8"></rect>
+
+    <rect x="13" y="13" width="22" height="22" rx="7" stroke="url(#auroraInstagram)" stroke-width="2.8"></rect>
+
+    <circle cx="24" cy="24" r="6" stroke="url(#auroraInstagram)" stroke-width="2.8"></circle>
+
+    <circle cx="33.5" cy="14.5" r="1.9" fill="url(#auroraInstagram)"></circle>
+  </g>
+</svg>

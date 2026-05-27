@@ -1,0 +1,15 @@
+<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldWhatsapp" x1="8" y1="8" x2="44" y2="44">
+      <stop stop-color="#D8AF5A"></stop>
+      <stop offset="0.5" stop-color="#F6E2A5"></stop>
+      <stop offset="1" stop-color="#A56A1A"></stop>
+    </linearGradient>
+  </defs>
+
+  <circle cx="26" cy="26" r="21" stroke="url(#goldWhatsapp)" stroke-width="2.6"></circle>
+
+  <path d="M26 14.5C19.6 14.5 14.5 19.3 14.5 25.3C14.5 27.6 15.3 29.8 16.7 31.6L15.4 37.5L21.3 35.9C22.8 36.7 24.4 37.1 26 37.1C32.4 37.1 37.5 32.3 37.5 26.3C37.5 20.3 32.4 14.5 26 14.5Z" stroke="url(#goldWhatsapp)" stroke-width="2.2" stroke-linejoin="round"></path>
+
+  <path d="M21.8 21.5C22.2 20.7 22.8 20.5 23.4 20.5H24.5C24.9 20.5 25.2 20.8 25.4 21.2L26.3 23.4C26.5 23.9 26.4 24.3 26 24.7L25.2 25.5C25.9 27 27.2 28.3 28.7 29.1L29.5 28.3C29.9 27.9 30.3 27.8 30.8 28L33 28.9C33.4 29.1 33.7 29.4 33.7 29.9V31C33.7 31.7 33.3 32.2 32.6 32.5C31.8 32.8 30.8 32.8 29.8 32.5C25.5 31.2 22.1 27.8 20.8 23.5C20.5 22.5 20.8 22 21.8 21.5Z" fill="url(#goldWhatsapp)"></path>
+</svg>
