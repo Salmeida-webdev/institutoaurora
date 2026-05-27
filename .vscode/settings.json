@@ -1,0 +1,32 @@
+{
+  "name": "Instituto Aurora",
+  "short_name": "Aurora",
+  "description": "Psicologia & Terapia Online com acolhimento, leveza e experiência premium.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f1ea",
+  "theme_color": "#1d2b22",
+  "orientation": "portrait-primary",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "scope": "/",
+  "categories": [
+    "health",
+    "psychology",
+    "wellness",
+    "therapy",
+    "mental-health"
+  ],
+  "icons": [
+    {
+      "src": "./assets/logo/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/logo/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

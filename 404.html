@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>404 | Página não encontrada — Instituto Aurora</title>
+
+    <meta
+      name="description"
+      content="A página que você tentou acessar não foi encontrada. Retorne ao Instituto Aurora."
+    />
+
+    <link rel="icon" type="image/png" href="./assets/logo/favicon.png" />
+    <link rel="apple-touch-icon" href="./assets/logo/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --color-bg: #f3f1ea;
+        --color-surface: rgba(255, 255, 255, 0.82);
+        --color-primary: #1d2b22;
+        --color-secondary: #5a665f;
+        --color-border: rgba(29, 43, 34, 0.08);
+
+        --shadow-soft: 0 24px 80px rgba(22, 29, 24, 0.08);
+
+        --radius-xl: 40px;
+
+        --container: 1180px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          rgba(243, 241, 234, 0.96),
+          rgba(237, 236, 229, 0.98)
+        );
+        font-family: "Inter", sans-serif;
+        color: var(--color-primary);
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(177, 163, 129, 0.12),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(29, 43, 34, 0.08),
+            transparent 42%
+          );
+        pointer-events: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .error-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .error-card {
+        width: min(100%, 1180px);
+        background: var(--color-surface);
+        backdrop-filter: blur(18px);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-soft);
+        overflow: hidden;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+      }
+
+      .error-content {
+        padding: 88px 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+
+      .error-logo {
+        width: 220px;
+        margin-bottom: 48px;
+      }
+
+      .error-code {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(5rem, 10vw, 10rem);
+        line-height: 0.9;
+        letter-spacing: -0.08em;
+        margin-bottom: 16px;
+        color: var(--color-primary);
+      }
+
+      .error-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(2.8rem, 5vw, 4.8rem);
+        line-height: 0.94;
+        letter-spacing: -0.06em;
+        margin-bottom: 28px;
+        max-width: 520px;
+      }
+
+      .error-description {
+        font-size: 1.12rem;
+        line-height: 1.8;
+        color: var(--color-secondary);
+        max-width: 520px;
+        margin-bottom: 48px;
+      }
+
+      .error-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .button-primary {
+        min-height: 62px;
+        padding: 0 34px;
+        border-radius: 999px;
+        background: var(--color-primary);
+        color: #ffffff;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.35s ease,
+          background 0.35s ease;
+      }
+
+      .button-primary:hover {
+        transform: translateY(-2px);
+        background: #2a3a31;
+      }
+
+      .button-secondary {
+        min-height: 62px;
+        padding: 0 34px;
+        border-radius: 999px;
+        border: 1px solid rgba(29, 43, 34, 0.12);
+        color: var(--color-primary);
+        background: rgba(255, 255, 255, 0.72);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.35s ease,
+          border-color 0.35s ease;
+      }
+
+      .button-secondary:hover {
+        transform: translateY(-2px);
+        border-color: rgba(29, 43, 34, 0.24);
+      }
+
+      .error-visual {
+        position: relative;
+        min-height: 720px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          rgba(30, 42, 34, 0.02),
+          rgba(30, 42, 34, 0.06)
+        );
+      }
+
+      .error-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .error-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(18, 24, 20, 0.02),
+          rgba(18, 24, 20, 0.14)
+        );
+      }
+
+      .error-floating {
+        position: absolute;
+        right: 48px;
+        bottom: 48px;
+
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(14px);
+
+        border: 1px solid rgba(255, 255, 255, 0.4);
+
+        border-radius: 28px;
+
+        padding: 28px;
+
+        width: min(100% - 48px, 320px);
+
+        box-shadow: 0 20px 60px rgba(18, 24, 20, 0.12);
+      }
+
+      .error-floating span {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(29, 43, 34, 0.55);
+        margin-bottom: 12px;
+      }
+
+      .error-floating h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        margin-bottom: 12px;
+        color: var(--color-primary);
+      }
+
+      .error-floating p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--color-secondary);
+      }
+
+      @media (max-width: 1100px) {
+        .error-card {
+          grid-template-columns: 1fr;
+        }
+
+        .error-visual {
+          min-height: 520px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .error-page {
+          padding: 16px;
+        }
+
+        .error-content {
+          padding: 56px 24px;
+        }
+
+        .error-logo {
+          width: 180px;
+          margin-bottom: 40px;
+        }
+
+        .error-description {
+          font-size: 1rem;
+        }
+
+        .error-actions {
+          flex-direction: column;
+        }
+
+        .button-primary,
+        .button-secondary {
+          width: 100%;
+        }
+
+        .error-visual {
+          min-height: 420px;
+        }
+
+        .error-floating {
+          right: 20px;
+          left: 20px;
+          bottom: 20px;
+          width: auto;
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="error-page">
+      <section class="error-card">
+        <div class="error-content">
+          <img
+            src="./assets/logo/logo-aurora.png"
+            alt="Instituto Aurora"
+            class="error-logo"
+          />
+
+          <div class="error-code">404</div>
+
+          <h1 class="error-title">Essa página não foi encontrada.</h1>
+
+          <p class="error-description">
+            O conteúdo que você tentou acessar pode ter sido removido,
+            atualizado ou movido para outro endereço. Retorne para a página
+            inicial e continue sua navegação com tranquilidade.
+          </p>
+
+          <div class="error-actions">
+            <a href="./index.html" class="button-primary">
+              Voltar para o início
+            </a>
+
+            <a
+              href="https://wa.me/5583998326680"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="button-secondary"
+            >
+              Entrar em contato
+            </a>
+          </div>
+        </div>
+
+        <div class="error-visual">
+          <img
+            src="./assets/images/contact/contact-section.webp"
+            alt="Instituto Aurora"
+            loading="eager"
+            decoding="async"
+          />
+
+          <div class="error-overlay"></div>
+
+          <div class="error-floating">
+            <span>Instituto Aurora</span>
+
+            <h2>Psicologia & Terapia Online</h2>
+
+            <p>
+              Um espaço pensado para acolher emoções com leveza, presença e
+              profundidade humana.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

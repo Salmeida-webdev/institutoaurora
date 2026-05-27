@@ -1,122 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loader");
   const header = document.getElementById("siteHeader");
-
   const menuToggle = document.getElementById("menuToggle");
   const siteNav = document.getElementById("siteNav");
-
   const navLinks = document.querySelectorAll(".site-nav a");
-
   const revealElements = document.querySelectorAll(".reveal");
-
   const faqItems = document.querySelectorAll(".faq-item");
-
-  /* =========================
-     LOADER
-  ========================= */
+  const heroBg = document.querySelector(".hero__bg");
 
   window.addEventListener(
     "load",
     () => {
-      window.setTimeout(() => {
-        loader?.classList.add("hide");
-      }, 320);
+      setTimeout(() => loader?.classList.add("hide"), 320);
     },
     { once: true },
   );
 
-  /* =========================
-     HEADER SCROLL
-  ========================= */
-
   const handleHeader = () => {
-    if (!header) return;
-
-    if (window.scrollY > 20) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
+    header?.classList.toggle("scrolled", window.scrollY > 20);
   };
 
   handleHeader();
-
-  window.addEventListener("scroll", handleHeader, {
-    passive: true,
-  });
-
-  /* =========================
-     MOBILE MENU
-  ========================= */
+  window.addEventListener("scroll", handleHeader, { passive: true });
 
   const closeMenu = () => {
-    if (!siteNav || !menuToggle) return;
-
-    siteNav.classList.remove("active");
-
+    siteNav?.classList.remove("active");
     document.body.classList.remove("menu-open");
-
-    menuToggle.setAttribute("aria-expanded", "false");
-  };
-
-  const openMenu = () => {
-    if (!siteNav || !menuToggle) return;
-
-    siteNav.classList.add("active");
-
-    document.body.classList.add("menu-open");
-
-    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle?.setAttribute("aria-expanded", "false");
   };
 
   if (menuToggle && siteNav) {
     menuToggle.addEventListener("click", () => {
       const isOpen = siteNav.classList.contains("active");
-
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      siteNav.classList.toggle("active", !isOpen);
+      document.body.classList.toggle("menu-open", !isOpen);
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
     });
 
-    navLinks.forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
+    navLinks.forEach((link) => link.addEventListener("click", closeMenu));
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeMenu();
-      }
+      if (event.key === "Escape") closeMenu();
     });
 
     document.addEventListener("click", (event) => {
       const target = event.target;
-
       if (!(target instanceof Element)) return;
 
-      const clickedInsideNav = siteNav.contains(target);
-
-      const clickedToggle = menuToggle.contains(target);
-
-      if (!clickedInsideNav && !clickedToggle) {
+      if (!siteNav.contains(target) && !menuToggle.contains(target)) {
         closeMenu();
       }
     });
   }
-
-  /* =========================
-     REVEAL ANIMATION
-  ========================= */
 
   if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-
           entry.target.classList.add("visible");
-
           observer.unobserve(entry.target);
         });
       },
@@ -126,22 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     );
 
-    revealElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
+    revealElements.forEach((element) => revealObserver.observe(element));
   } else {
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-    });
+    revealElements.forEach((element) => element.classList.add("visible"));
   }
-
-  /* =========================
-     FAQ ACCORDION
-  ========================= */
 
   faqItems.forEach((item) => {
     const button = item.querySelector(".faq-question");
-
     if (!button) return;
 
     button.addEventListener("click", () => {
@@ -149,55 +82,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
       faqItems.forEach((faq) => {
         faq.classList.remove("active");
-
-        const faqButton = faq.querySelector(".faq-question");
-
-        faqButton?.setAttribute("aria-expanded", "false");
+        faq
+          .querySelector(".faq-question")
+          ?.setAttribute("aria-expanded", "false");
       });
 
       if (!isActive) {
         item.classList.add("active");
-
         button.setAttribute("aria-expanded", "true");
       }
     });
   });
 
-  /* =========================
-     PARALLAX SUAVE HERO
-  ========================= */
-
-  const hero = document.querySelector(".hero__bg");
+  let ticking = false;
 
   const handleParallax = () => {
-    if (!hero) return;
+    if (!heroBg || window.innerWidth < 768) return;
 
-    const scrollY = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        heroBg.style.transform = `translateY(${window.scrollY * 0.08}px)`;
+        ticking = false;
+      });
 
-    hero.style.transform = `translateY(${scrollY * 0.08}px)`;
+      ticking = true;
+    }
   };
 
-  window.addEventListener("scroll", handleParallax, {
-    passive: true,
-  });
+  window.addEventListener("scroll", handleParallax, { passive: true });
 
-  /* =========================
-     SAFE IMAGE FADE
-  ========================= */
-
-  const images = document.querySelectorAll("img");
-
-  images.forEach((img) => {
+  document.querySelectorAll("img").forEach((img) => {
     if (img.complete) {
       img.classList.add("loaded");
-    } else {
-      img.addEventListener(
-        "load",
-        () => {
-          img.classList.add("loaded");
-        },
-        { once: true },
-      );
+      return;
     }
+
+    img.addEventListener("load", () => img.classList.add("loaded"), {
+      once: true,
+    });
   });
 });

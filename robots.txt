@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://institutoaurora.netlify.app/sitemap.xml
+
+# Bloqueios opcionais
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Performance / Crawling
+Crawl-delay: 2
