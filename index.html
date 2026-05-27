@@ -58,7 +58,9 @@
     <link
       rel="preload"
       as="image"
-      href="./assets/images/hero/hero-aurora.webp"
+      href="./assets/images/hero/hero-aurora-mobile.webp"
+      imagesrcset="./assets/images/hero/hero-aurora-mobile.webp 640w, ./assets/images/hero/hero-aurora-tablet.webp 1024w, ./assets/images/hero/hero-aurora.webp 1535w"
+      imagesizes="(max-width: 640px) 92vw, (max-width: 1024px) 82vw, 42vw"
       fetchpriority="high"
     />
 
@@ -244,16 +246,28 @@
 
             <div class="hero-visual reveal reveal-visual">
               <div class="hero-visual__frame">
-                <img
-                  src="./assets/images/hero/hero-aurora.webp"
-                  alt="Ambiente acolhedor e sofisticado representando terapia online"
-                  class="hero-image"
-                  width="680"
-                  height="820"
-                  loading="eager"
-                  fetchpriority="high"
-                  decoding="async"
-                />
+                <picture>
+                  <source
+                    media="(max-width: 640px)"
+                    srcset="./assets/images/hero/hero-aurora-mobile.webp"
+                  />
+
+                  <source
+                    media="(max-width: 1024px)"
+                    srcset="./assets/images/hero/hero-aurora-tablet.webp"
+                  />
+
+                  <img
+                    src="./assets/images/hero/hero-aurora.webp"
+                    alt="Ambiente acolhedor e sofisticado representando terapia online"
+                    class="hero-image"
+                    width="680"
+                    height="820"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                  />
+                </picture>
 
                 <div class="hero-card hero-card--main">
                   <span>01</span>

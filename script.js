@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
+  const isMobile = () => window.innerWidth <= 640;
+
   const hideLoader = () => {
     if (!loader) return;
     loader.classList.add("hide");
@@ -21,13 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "load",
     () => {
       window.requestAnimationFrame(() => {
-        setTimeout(hideLoader, 160);
+        setTimeout(hideLoader, 80);
       });
     },
     { once: true },
   );
 
-  setTimeout(hideLoader, 1800);
+  setTimeout(hideLoader, 1200);
 
   const handleHeader = () => {
     if (!header) return;
@@ -35,7 +37,23 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   handleHeader();
-  window.addEventListener("scroll", handleHeader, { passive: true });
+
+  let headerTicking = false;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (headerTicking) return;
+
+      headerTicking = true;
+
+      window.requestAnimationFrame(() => {
+        handleHeader();
+        headerTicking = false;
+      });
+    },
+    { passive: true },
+  );
 
   const closeMenu = () => {
     if (!siteNav || !menuToggle) return;
@@ -91,7 +109,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if ("IntersectionObserver" in window && !prefersReducedMotion) {
+  const revealImmediately = () => {
+    revealElements.forEach((element) => {
+      element.classList.add("visible");
+      element.style.transitionDelay = "0ms";
+    });
+  };
+
+  if (
+    "IntersectionObserver" in window &&
+    !prefersReducedMotion &&
+    !isMobile()
+  ) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
@@ -102,20 +131,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       },
       {
-        threshold: 0.14,
+        threshold: 0.12,
         rootMargin: "0px 0px -48px 0px",
       },
     );
 
     revealElements.forEach((element, index) => {
-      element.style.transitionDelay = `${Math.min(index * 35, 220)}ms`;
+      element.style.transitionDelay = `${Math.min(index * 28, 180)}ms`;
       revealObserver.observe(element);
     });
   } else {
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-      element.style.transitionDelay = "0ms";
-    });
+    revealImmediately();
   }
 
   faqItems.forEach((item) => {
@@ -140,53 +166,63 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  let ticking = false;
+  let parallaxTicking = false;
 
   const handleParallax = () => {
-    if (!heroBg || prefersReducedMotion || window.innerWidth < 768) return;
+    if (!heroBg || prefersReducedMotion || window.innerWidth < 1024) return;
 
-    if (ticking) return;
+    if (parallaxTicking) return;
 
-    ticking = true;
+    parallaxTicking = true;
 
     window.requestAnimationFrame(() => {
-      const offset = Math.min(window.scrollY * 0.06, 48);
+      const offset = Math.min(window.scrollY * 0.045, 36);
       heroBg.style.transform = `translate3d(0, ${offset}px, 0)`;
-      ticking = false;
+      parallaxTicking = false;
     });
   };
 
   window.addEventListener("scroll", handleParallax, { passive: true });
 
-  const markImageAsLoaded = (img) => {
-    img.classList.add("loaded");
-  };
-
   document.querySelectorAll("img").forEach((img) => {
     if (img.complete) {
-      markImageAsLoaded(img);
+      img.classList.add("loaded");
       return;
     }
 
-    img.addEventListener("load", () => markImageAsLoaded(img), {
-      once: true,
-    });
+    img.addEventListener(
+      "load",
+      () => {
+        img.classList.add("loaded");
+      },
+      { once: true },
+    );
 
-    img.addEventListener("error", () => markImageAsLoaded(img), {
-      once: true,
-    });
+    img.addEventListener(
+      "error",
+      () => {
+        img.classList.add("loaded");
+      },
+      { once: true },
+    );
   });
+
+  let resizeTimer;
 
   window.addEventListener(
     "resize",
     () => {
-      if (window.innerWidth > 920) {
-        closeMenu();
-      }
+      clearTimeout(resizeTimer);
 
-      if (window.innerWidth < 768 && heroBg) {
-        heroBg.style.transform = "";
-      }
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 920) {
+          closeMenu();
+        }
+
+        if (window.innerWidth < 1024 && heroBg) {
+          heroBg.style.transform = "";
+        }
+      }, 120);
     },
     { passive: true },
   );
