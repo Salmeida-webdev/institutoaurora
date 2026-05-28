@@ -222,6 +222,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.innerWidth < 1024 && heroBg) {
           heroBg.style.transform = "";
         }
+
+        if (isMobile()) {
+          revealImmediately();
+        }
       }, 120);
     },
     { passive: true },
