@@ -7,36 +7,56 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealElements = document.querySelectorAll(".reveal");
   const faqItems = document.querySelectorAll(".faq-item");
   const heroBg = document.querySelector(".hero__bg");
+  const heroLights = document.querySelectorAll(".hero__light");
   const whatsappFloat = document.querySelector(".whatsapp-float");
   const heroSection = document.querySelector(".hero");
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
   const prefersReducedMotion = () => motionQuery.matches;
 
   const isMobile = () => window.innerWidth <= 640;
+
   const canUseMotion = () => !prefersReducedMotion() && !isMobile();
+
   const canUseParallax = () =>
     !prefersReducedMotion() && window.innerWidth >= 1024;
 
+  /* =========================
+     Loader
+  ========================= */
+
   const hideLoader = () => {
     if (!loader) return;
+
     loader.classList.add("hide");
   };
 
-  const revealImmediately = () => {
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-      element.style.transitionDelay = "0ms";
-    });
-  };
+  window.addEventListener(
+    "load",
+    () => {
+      requestAnimationFrame(() => {
+        setTimeout(hideLoader, 80);
+      });
+    },
+    { once: true },
+  );
+
+  setTimeout(hideLoader, 1200);
+
+  /* =========================
+     Mobile Menu
+  ========================= */
 
   const closeMenu = () => {
     if (!siteNav || !menuToggle) return;
 
     siteNav.classList.remove("active");
+
     document.body.classList.remove("menu-open");
 
     menuToggle.setAttribute("aria-expanded", "false");
+
     menuToggle.setAttribute("aria-label", "Abrir menu");
   };
 
@@ -44,73 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!siteNav || !menuToggle) return;
 
     siteNav.classList.add("active");
+
     document.body.classList.add("menu-open");
 
     menuToggle.setAttribute("aria-expanded", "true");
+
     menuToggle.setAttribute("aria-label", "Fechar menu");
   };
-
-  const handleHeader = () => {
-    if (!header) return;
-
-    header.classList.toggle("scrolled", window.scrollY > 20);
-  };
-
-  const handleWhatsappVisibility = () => {
-    if (!whatsappFloat) return;
-
-    const heroHeight = heroSection
-      ? heroSection.offsetHeight
-      : window.innerHeight * 0.82;
-
-    const shouldShow = window.scrollY > heroHeight * 0.72;
-
-    whatsappFloat.classList.toggle("is-visible", shouldShow);
-  };
-
-  const handleParallax = () => {
-    if (!heroBg) return;
-
-    if (!canUseParallax()) {
-      heroBg.style.transform = "";
-      return;
-    }
-
-    const offset = Math.min(window.scrollY * 0.045, 42);
-
-    heroBg.style.transform = `translate3d(0, ${offset}px, 0)`;
-  };
-
-  const handleScrollWork = () => {
-    handleHeader();
-    handleWhatsappVisibility();
-    handleParallax();
-  };
-
-  let scrollTicking = false;
-
-  const onScroll = () => {
-    if (scrollTicking) return;
-
-    scrollTicking = true;
-
-    window.requestAnimationFrame(() => {
-      handleScrollWork();
-      scrollTicking = false;
-    });
-  };
-
-  window.addEventListener(
-    "load",
-    () => {
-      window.requestAnimationFrame(() => {
-        setTimeout(hideLoader, 60);
-      });
-    },
-    { once: true },
-  );
-
-  setTimeout(hideLoader, 1000);
 
   if (menuToggle && siteNav) {
     menuToggle.addEventListener("click", () => {
@@ -133,9 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const target = event.target;
 
       if (!(target instanceof Element)) return;
+
       if (!siteNav.classList.contains("active")) return;
 
       const clickedInsideMenu = siteNav.contains(target);
+
       const clickedToggle = menuToggle.contains(target);
 
       if (!clickedInsideMenu && !clickedToggle) {
@@ -143,6 +105,100 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  /* =========================
+     Header + WhatsApp Reveal
+  ========================= */
+
+  const handleHeader = () => {
+    if (!header) return;
+
+    header.classList.toggle("scrolled", window.scrollY > 18);
+  };
+
+  const handleWhatsappVisibility = () => {
+    if (!whatsappFloat) return;
+
+    const heroHeight = heroSection
+      ? heroSection.offsetHeight
+      : window.innerHeight * 0.85;
+
+    const shouldShow = window.scrollY > heroHeight * 0.68;
+
+    whatsappFloat.classList.toggle("is-visible", shouldShow);
+  };
+
+  /* =========================
+     Cinematic Parallax
+  ========================= */
+
+  const handleParallax = () => {
+    if (!canUseParallax()) {
+      if (heroBg) {
+        heroBg.style.transform = "";
+      }
+
+      heroLights.forEach((light) => {
+        light.style.transform = "";
+      });
+
+      return;
+    }
+
+    const scrollY = window.scrollY;
+
+    if (heroBg) {
+      const bgOffset = Math.min(scrollY * 0.045, 46);
+
+      heroBg.style.transform = `translate3d(0, ${bgOffset}px, 0)`;
+    }
+
+    heroLights.forEach((light, index) => {
+      const multiplier = index === 0 ? 0.028 : 0.04;
+
+      const offset = scrollY * multiplier;
+
+      light.style.transform = `translate3d(0, ${offset}px, 0)`;
+    });
+  };
+
+  /* =========================
+     Smooth Scroll RAF
+  ========================= */
+
+  const handleScrollWork = () => {
+    handleHeader();
+
+    handleWhatsappVisibility();
+
+    handleParallax();
+  };
+
+  let scrollTicking = false;
+
+  const onScroll = () => {
+    if (scrollTicking) return;
+
+    scrollTicking = true;
+
+    requestAnimationFrame(() => {
+      handleScrollWork();
+
+      scrollTicking = false;
+    });
+  };
+
+  /* =========================
+     Reveal + Stagger
+  ========================= */
+
+  const revealImmediately = () => {
+    revealElements.forEach((element) => {
+      element.classList.add("visible");
+
+      element.style.transitionDelay = "0ms";
+    });
+  };
 
   if ("IntersectionObserver" in window && canUseMotion()) {
     const revealObserver = new IntersectionObserver(
@@ -158,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const index = sectionReveals.indexOf(entry.target);
 
-          const staggerDelay = Math.min(Math.max(index, 0) * 80, 320);
+          const staggerDelay = Math.min(Math.max(index, 0) * 82, 340);
 
           entry.target.style.transitionDelay = `${staggerDelay}ms`;
 
@@ -179,6 +235,10 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     revealImmediately();
   }
+
+  /* =========================
+     FAQ Premium Accordion
+  ========================= */
 
   faqItems.forEach((item) => {
     const button = item.querySelector(".faq-question");
@@ -204,9 +264,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  /* =========================
+     Image Loaded State
+  ========================= */
+
   document.querySelectorAll("img").forEach((img) => {
     if (img.complete) {
       img.classList.add("loaded");
+
       return;
     }
 
@@ -226,6 +291,10 @@ document.addEventListener("DOMContentLoaded", () => {
       { once: true },
     );
   });
+
+  /* =========================
+     Resize Optimization
+  ========================= */
 
   let resizeTimer;
 
@@ -253,6 +322,10 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: true },
   );
 
+  /* =========================
+     Reduced Motion
+  ========================= */
+
   const handleMotionChange = () => {
     if (!prefersReducedMotion()) return;
 
@@ -261,6 +334,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (heroBg) {
       heroBg.style.transform = "";
     }
+
+    heroLights.forEach((light) => {
+      light.style.transform = "";
+    });
   };
 
   if (typeof motionQuery.addEventListener === "function") {
@@ -268,6 +345,10 @@ document.addEventListener("DOMContentLoaded", () => {
   } else if (typeof motionQuery.addListener === "function") {
     motionQuery.addListener(handleMotionChange);
   }
+
+  /* =========================
+     Init
+  ========================= */
 
   handleScrollWork();
 
