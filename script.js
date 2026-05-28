@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     siteNav.classList.remove("active");
     document.body.classList.remove("menu-open");
+
     menuToggle.setAttribute("aria-expanded", "false");
     menuToggle.setAttribute("aria-label", "Abrir menu");
   };
@@ -44,12 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     siteNav.classList.add("active");
     document.body.classList.add("menu-open");
+
     menuToggle.setAttribute("aria-expanded", "true");
     menuToggle.setAttribute("aria-label", "Fechar menu");
   };
 
   const handleHeader = () => {
     if (!header) return;
+
     header.classList.toggle("scrolled", window.scrollY > 20);
   };
 
@@ -60,10 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ? heroSection.offsetHeight
       : window.innerHeight * 0.82;
 
-    whatsappFloat.classList.toggle(
-      "is-visible",
-      window.scrollY > heroHeight * 0.72,
-    );
+    const shouldShow = window.scrollY > heroHeight * 0.72;
+
+    whatsappFloat.classList.toggle("is-visible", shouldShow);
   };
 
   const handleParallax = () => {
@@ -74,7 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const offset = Math.min(window.scrollY * 0.045, 36);
+    const offset = Math.min(window.scrollY * 0.045, 42);
+
     heroBg.style.transform = `translate3d(0, ${offset}px, 0)`;
   };
 
@@ -101,17 +104,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "load",
     () => {
       window.requestAnimationFrame(() => {
-        setTimeout(hideLoader, 80);
+        setTimeout(hideLoader, 60);
       });
     },
     { once: true },
   );
 
-  setTimeout(hideLoader, 1100);
+  setTimeout(hideLoader, 1000);
 
   if (menuToggle && siteNav) {
     menuToggle.addEventListener("click", () => {
       const isOpen = siteNav.classList.contains("active");
+
       isOpen ? closeMenu() : openMenu();
     });
 
@@ -120,7 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
+      if (event.key === "Escape") {
+        closeMenu();
+      }
     });
 
     document.addEventListener("click", (event) => {
@@ -132,7 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const clickedInsideMenu = siteNav.contains(target);
       const clickedToggle = menuToggle.contains(target);
 
-      if (!clickedInsideMenu && !clickedToggle) closeMenu();
+      if (!clickedInsideMenu && !clickedToggle) {
+        closeMenu();
+      }
     });
   }
 
@@ -143,14 +151,17 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!entry.isIntersecting) return;
 
           const section = entry.target.closest("section");
+
           const sectionReveals = section
             ? Array.from(section.querySelectorAll(".reveal"))
             : Array.from(revealElements);
 
           const index = sectionReveals.indexOf(entry.target);
-          const delay = Math.min(Math.max(index, 0) * 70, 280);
 
-          entry.target.style.transitionDelay = `${delay}ms`;
+          const staggerDelay = Math.min(Math.max(index, 0) * 80, 320);
+
+          entry.target.style.transitionDelay = `${staggerDelay}ms`;
+
           entry.target.classList.add("visible");
 
           observer.unobserve(entry.target);
@@ -158,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       {
         threshold: 0.12,
-        rootMargin: "0px 0px -56px 0px",
+        rootMargin: "0px 0px -60px 0px",
       },
     );
 
@@ -181,11 +192,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const faqButton = faq.querySelector(".faq-question");
 
         faq.classList.remove("active");
+
         faqButton?.setAttribute("aria-expanded", "false");
       });
 
       if (!isActive) {
         item.classList.add("active");
+
         button.setAttribute("aria-expanded", "true");
       }
     });
@@ -222,7 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
       clearTimeout(resizeTimer);
 
       resizeTimer = setTimeout(() => {
-        if (window.innerWidth > 920) closeMenu();
+        if (window.innerWidth > 920) {
+          closeMenu();
+        }
 
         if (!canUseParallax() && heroBg) {
           heroBg.style.transform = "";
@@ -256,5 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   handleScrollWork();
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, {
+    passive: true,
+  });
 });
