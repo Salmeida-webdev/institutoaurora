@@ -11,16 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const whatsappFloat = document.querySelector(".whatsapp-float");
   const heroSection = document.querySelector(".hero");
 
-  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reducedMotionQuery = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  );
 
-  const prefersReducedMotion = () => motionQuery.matches;
+  const prefersReducedMotion = () => reducedMotionQuery.matches;
 
   const isMobile = () => window.innerWidth <= 640;
 
   const canUseMotion = () => !prefersReducedMotion() && !isMobile();
 
   const canUseParallax = () =>
-    !prefersReducedMotion() && window.innerWidth >= 1024;
+    !prefersReducedMotion() && window.innerWidth >= 1180;
 
   /* =========================
      Loader
@@ -36,13 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "load",
     () => {
       requestAnimationFrame(() => {
-        setTimeout(hideLoader, 80);
+        setTimeout(hideLoader, 60);
       });
     },
     { once: true },
   );
 
-  setTimeout(hideLoader, 1200);
+  setTimeout(hideLoader, 900);
 
   /* =========================
      Mobile Menu
@@ -96,18 +98,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!siteNav.classList.contains("active")) return;
 
-      const clickedInsideMenu = siteNav.contains(target);
+      const clickedMenu = siteNav.contains(target);
 
       const clickedToggle = menuToggle.contains(target);
 
-      if (!clickedInsideMenu && !clickedToggle) {
+      if (!clickedMenu && !clickedToggle) {
         closeMenu();
       }
     });
   }
 
   /* =========================
-     Header + WhatsApp Reveal
+     Header State
   ========================= */
 
   const handleHeader = () => {
@@ -116,7 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
     header.classList.toggle("scrolled", window.scrollY > 18);
   };
 
-  const handleWhatsappVisibility = () => {
+  /* =========================
+     WhatsApp Reveal
+  ========================= */
+
+  const handleWhatsappReveal = () => {
     if (!whatsappFloat) return;
 
     const heroHeight = heroSection
@@ -148,28 +154,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const scrollY = window.scrollY;
 
     if (heroBg) {
-      const bgOffset = Math.min(scrollY * 0.045, 46);
+      const offset = Math.min(scrollY * 0.028, 32);
 
-      heroBg.style.transform = `translate3d(0, ${bgOffset}px, 0)`;
+      heroBg.style.transform = `translate3d(0, ${offset}px, 0)`;
     }
 
     heroLights.forEach((light, index) => {
-      const multiplier = index === 0 ? 0.028 : 0.04;
+      const speed = index === 0 ? 0.014 : 0.02;
 
-      const offset = scrollY * multiplier;
+      const offset = scrollY * speed;
 
       light.style.transform = `translate3d(0, ${offset}px, 0)`;
     });
   };
 
   /* =========================
-     Smooth Scroll RAF
+     RAF Scroll Optimization
   ========================= */
 
-  const handleScrollWork = () => {
+  const handleScrollEffects = () => {
     handleHeader();
 
-    handleWhatsappVisibility();
+    handleWhatsappReveal();
 
     handleParallax();
   };
@@ -182,14 +188,14 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollTicking = true;
 
     requestAnimationFrame(() => {
-      handleScrollWork();
+      handleScrollEffects();
 
       scrollTicking = false;
     });
   };
 
   /* =========================
-     Reveal + Stagger
+     Reveal Animation
   ========================= */
 
   const revealImmediately = () => {
@@ -208,15 +214,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const section = entry.target.closest("section");
 
-          const sectionReveals = section
+          const reveals = section
             ? Array.from(section.querySelectorAll(".reveal"))
             : Array.from(revealElements);
 
-          const index = sectionReveals.indexOf(entry.target);
+          const index = reveals.indexOf(entry.target);
 
-          const staggerDelay = Math.min(Math.max(index, 0) * 82, 340);
+          const stagger = Math.min(Math.max(index, 0) * 52, 180);
 
-          entry.target.style.transitionDelay = `${staggerDelay}ms`;
+          entry.target.style.transitionDelay = `${stagger}ms`;
 
           entry.target.classList.add("visible");
 
@@ -224,8 +230,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -60px 0px",
+        threshold: 0.1,
+        rootMargin: "0px 0px -40px 0px",
       },
     );
 
@@ -237,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     FAQ Premium Accordion
+     FAQ Accordion
   ========================= */
 
   faqItems.forEach((item) => {
@@ -249,11 +255,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const isActive = item.classList.contains("active");
 
       faqItems.forEach((faq) => {
-        const faqButton = faq.querySelector(".faq-question");
-
         faq.classList.remove("active");
 
-        faqButton?.setAttribute("aria-expanded", "false");
+        faq
+          .querySelector(".faq-question")
+          ?.setAttribute("aria-expanded", "false");
       });
 
       if (!isActive) {
@@ -308,15 +314,21 @@ document.addEventListener("DOMContentLoaded", () => {
           closeMenu();
         }
 
-        if (!canUseParallax() && heroBg) {
-          heroBg.style.transform = "";
+        handleWhatsappReveal();
+
+        if (!canUseParallax()) {
+          if (heroBg) {
+            heroBg.style.transform = "";
+          }
+
+          heroLights.forEach((light) => {
+            light.style.transform = "";
+          });
         }
 
         if (!canUseMotion()) {
           revealImmediately();
         }
-
-        handleWhatsappVisibility();
       }, 120);
     },
     { passive: true },
@@ -340,17 +352,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  if (typeof motionQuery.addEventListener === "function") {
-    motionQuery.addEventListener("change", handleMotionChange);
-  } else if (typeof motionQuery.addListener === "function") {
-    motionQuery.addListener(handleMotionChange);
+  if (typeof reducedMotionQuery.addEventListener === "function") {
+    reducedMotionQuery.addEventListener("change", handleMotionChange);
+  } else if (typeof reducedMotionQuery.addListener === "function") {
+    reducedMotionQuery.addListener(handleMotionChange);
   }
 
   /* =========================
      Init
   ========================= */
 
-  handleScrollWork();
+  handleScrollEffects();
 
   window.addEventListener("scroll", onScroll, {
     passive: true,

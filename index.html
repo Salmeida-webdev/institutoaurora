@@ -47,6 +47,9 @@
     <link rel="icon" type="image/png" href="./assets/logo/favicon.png" />
     <link rel="apple-touch-icon" href="./assets/logo/apple-touch-icon.png" />
 
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -61,6 +64,7 @@
       href="./assets/images/hero/hero-aurora-mobile.avif"
       imagesrcset="./assets/images/hero/hero-aurora-mobile.avif 700w, ./assets/images/hero/hero-aurora-tablet.avif 1200w, ./assets/images/hero/hero-aurora.avif 1920w"
       imagesizes="(max-width: 640px) 92vw, (max-width: 1024px) 82vw, 42vw"
+      type="image/avif"
       fetchpriority="high"
     />
 
@@ -168,6 +172,7 @@
           class="loader__icon"
           width="56"
           height="56"
+          decoding="async"
         />
         <span class="loader__text">Instituto Aurora</span>
       </div>
@@ -182,6 +187,7 @@
               alt="Instituto Aurora"
               width="190"
               height="52"
+              decoding="async"
             />
           </a>
 
@@ -219,6 +225,7 @@
               alt=""
               width="24"
               height="24"
+              decoding="async"
             />
           </button>
         </div>
@@ -665,6 +672,8 @@
                     alt=""
                     width="20"
                     height="20"
+                    decoding="async"
+                    loading="lazy"
                   />
                   <span>Atendimento ético, sigiloso e humanizado.</span>
                 </div>
@@ -675,6 +684,8 @@
                     alt=""
                     width="20"
                     height="20"
+                    decoding="async"
+                    loading="lazy"
                   />
                   <span>Experiência online leve, organizada e segura.</span>
                 </div>
@@ -685,6 +696,8 @@
                     alt=""
                     width="20"
                     height="20"
+                    decoding="async"
+                    loading="lazy"
                   />
                   <span>
                     Comunicação clara antes, durante e após o atendimento.
@@ -1081,6 +1094,8 @@
                       alt=""
                       width="48"
                       height="48"
+                      decoding="async"
+                      loading="lazy"
                     />
                   </span>
                   <span class="contact-social__text">
@@ -1101,6 +1116,8 @@
                       alt=""
                       width="48"
                       height="48"
+                      decoding="async"
+                      loading="lazy"
                     />
                   </span>
                   <span class="contact-social__text">
@@ -1186,6 +1203,8 @@
         alt=""
         width="34"
         height="34"
+        decoding="async"
+        loading="lazy"
       />
     </a>
 

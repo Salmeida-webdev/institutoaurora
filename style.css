@@ -1,4 +1,4 @@
-/* Instituto Aurora - CSS V2.5 Cinematic | Design premium, direção de arte, responsividade e UX refinada */
+/* Instituto Aurora - CSS V3 Performance | Lighthouse 90+, UX premium e renderização otimizada */
 :root {
   --color-cream: #fbf9f6;
   --color-soft: #fdfbf7;
@@ -37,13 +37,13 @@
   --radius-lg: 32px;
   --radius-xl: 48px;
 
-  --shadow-soft: 0 22px 56px rgba(23, 32, 27, 0.075);
-  --shadow-card: 0 18px 44px rgba(23, 32, 27, 0.055);
-  --shadow-deep: 0 26px 68px rgba(23, 32, 27, 0.11);
-  --shadow-cinematic: 0 30px 82px rgba(23, 32, 27, 0.13);
+  --shadow-soft: 0 16px 38px rgba(23, 32, 27, 0.065);
+  --shadow-card: 0 12px 28px rgba(23, 32, 27, 0.045);
+  --shadow-deep: 0 20px 48px rgba(23, 32, 27, 0.09);
+  --shadow-cinematic: 0 22px 56px rgba(23, 32, 27, 0.11);
 
   --transition: 320ms cubic-bezier(0.22, 1, 0.36, 1);
-  --transition-slow: 780ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 560ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *,
@@ -65,12 +65,12 @@ body {
   background:
     radial-gradient(
       circle at 7% 0%,
-      rgba(216, 223, 211, 0.58),
+      rgba(216, 223, 211, 0.46),
       transparent 34%
     ),
     radial-gradient(
       circle at 92% 6%,
-      rgba(185, 154, 99, 0.11),
+      rgba(185, 154, 99, 0.08),
       transparent 30%
     ),
     linear-gradient(180deg, var(--color-cream), var(--color-soft));
@@ -142,7 +142,7 @@ section {
   position: relative;
   padding-block: var(--space-15);
   content-visibility: auto;
-  contain-intrinsic-size: 900px;
+  contain-intrinsic-size: 760px;
 }
 
 .hero {
@@ -337,8 +337,7 @@ p {
   border: 1px solid rgba(0, 0, 0, 0.04);
   border-radius: 999px;
   background: rgba(251, 249, 246, 0.9);
-  box-shadow: 0 14px 36px rgba(36, 48, 41, 0.075);
-  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 26px rgba(36, 48, 41, 0.06);
   pointer-events: auto;
   transition:
     background var(--transition),
@@ -453,18 +452,13 @@ p {
   background:
     radial-gradient(
       circle at 16% 18%,
-      rgba(216, 223, 211, 0.74),
-      transparent 34%
+      rgba(216, 223, 211, 0.58),
+      transparent 32%
     ),
     radial-gradient(
       circle at 76% 12%,
-      rgba(185, 154, 99, 0.14),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 58% 92%,
-      rgba(45, 66, 54, 0.075),
-      transparent 34%
+      rgba(185, 154, 99, 0.1),
+      transparent 28%
     ),
     linear-gradient(
       180deg,
@@ -480,13 +474,13 @@ p {
   background:
     linear-gradient(
       112deg,
-      rgba(251, 249, 246, 0.82),
-      rgba(251, 249, 246, 0.24) 48%,
-      rgba(216, 223, 211, 0.24)
+      rgba(251, 249, 246, 0.72),
+      rgba(251, 249, 246, 0.2) 48%,
+      rgba(216, 223, 211, 0.18)
     ),
     url("./assets/images/textures/noise.webp");
-  background-size: auto, 520px;
-  opacity: 0.105;
+  background-size: auto, 620px;
+  opacity: 0.07;
   pointer-events: none;
 }
 
@@ -502,15 +496,10 @@ p {
   background:
     radial-gradient(
       circle at 12% 12%,
-      rgba(216, 223, 211, 0.78),
-      transparent 34%
+      rgba(216, 223, 211, 0.5),
+      transparent 32%
     ),
-    radial-gradient(
-      circle at 82% 10%,
-      rgba(185, 154, 99, 0.13),
-      transparent 28%
-    ),
-    radial-gradient(circle at 62% 86%, rgba(45, 66, 54, 0.08), transparent 34%);
+    radial-gradient(circle at 82% 10%, rgba(185, 154, 99, 0.1), transparent 26%);
   will-change: transform;
 }
 
@@ -535,14 +524,14 @@ p {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(185, 154, 99, 0.11),
+    rgba(185, 154, 99, 0.08),
     transparent 70%
   );
 }
 
 .hero__grain {
   inset: 0;
-  opacity: 0.075;
+  opacity: 0.045;
   background-image: url("./assets/images/textures/noise.webp");
   background-size: 420px;
 }
@@ -603,7 +592,7 @@ p {
       rgba(255, 255, 255, 0.78),
       rgba(246, 244, 239, 0.62)
     );
-  box-shadow: 0 18px 38px rgba(23, 32, 27, 0.045);
+  box-shadow: 0 12px 26px rgba(23, 32, 27, 0.038);
   contain: layout paint;
 }
 
@@ -663,7 +652,7 @@ p {
   border: 1px solid rgba(0, 0, 0, 0.04);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.52);
-  box-shadow: 0 16px 34px rgba(36, 48, 41, 0.045);
+  box-shadow: 0 10px 22px rgba(36, 48, 41, 0.038);
   contain: layout paint;
 }
 
@@ -709,7 +698,7 @@ p {
       rgba(255, 255, 255, 0.48),
       rgba(216, 223, 211, 0.32)
     );
-  box-shadow: 0 24px 68px rgba(23, 32, 27, 0.09);
+  box-shadow: 0 18px 42px rgba(23, 32, 27, 0.075);
 }
 
 .hero-image {
@@ -747,8 +736,7 @@ p {
       transparent 36%
     ),
     rgba(251, 249, 246, 0.92);
-  box-shadow: 0 18px 42px rgba(23, 32, 27, 0.095);
-  backdrop-filter: blur(4px);
+  box-shadow: 0 14px 32px rgba(23, 32, 27, 0.075);
 }
 
 .hero-card span {
@@ -838,6 +826,8 @@ p {
     box-shadow var(--transition),
     border-color var(--transition);
   contain: layout paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 420px;
 }
 
 .specialty-card::after {
@@ -858,7 +848,7 @@ p {
 .specialty-card:hover {
   transform: translateY(-6px);
   border-color: rgba(185, 154, 99, 0.2);
-  box-shadow: 0 28px 68px rgba(23, 32, 27, 0.095);
+  box-shadow: 0 18px 42px rgba(23, 32, 27, 0.075);
 }
 
 .specialty-card:hover::after {
@@ -869,11 +859,11 @@ p {
   width: 100%;
   height: 280px;
   object-fit: cover;
-  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .specialty-card:hover img {
-  transform: scale(1.025);
+  transform: scale(1.015);
 }
 
 .specialty-card__content {
@@ -914,7 +904,7 @@ p {
 
 .specialty-card:nth-child(2),
 .specialty-card:nth-child(5) {
-  transform: translateY(18px);
+  transform: translateY(12px);
 }
 
 .specialty-card:nth-child(3),
@@ -974,7 +964,7 @@ p {
     ),
     radial-gradient(
       circle at 86% 14%,
-      rgba(185, 154, 99, 0.11),
+      rgba(185, 154, 99, 0.08),
       transparent 30%
     ),
     linear-gradient(180deg, var(--color-cream), var(--color-soft));
@@ -1213,7 +1203,7 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.62);
   border-radius: 32px;
   background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 22px 52px rgba(23, 32, 27, 0.1);
+  box-shadow: 0 14px 34px rgba(23, 32, 27, 0.075);
 }
 
 .therapy-steps {
@@ -1314,7 +1304,7 @@ p {
 .testimonial-card:hover {
   transform: translateY(-5px);
   border-color: rgba(185, 154, 99, 0.18);
-  box-shadow: 0 18px 40px rgba(36, 48, 41, 0.085);
+  box-shadow: 0 12px 30px rgba(36, 48, 41, 0.065);
 }
 
 .benefit-card--center {
@@ -1448,7 +1438,7 @@ p {
 
 .faq-item.active {
   border-color: rgba(185, 154, 99, 0.22);
-  box-shadow: 0 22px 52px rgba(23, 32, 27, 0.08);
+  box-shadow: 0 14px 34px rgba(23, 32, 27, 0.065);
 }
 
 .faq-question {
@@ -1484,11 +1474,16 @@ p {
 .faq-answer {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows var(--transition);
+  visibility: hidden;
+  contain: layout paint;
+  transition:
+    grid-template-rows var(--transition),
+    visibility var(--transition);
 }
 
 .faq-item.active .faq-answer {
   grid-template-rows: 1fr;
+  visibility: visible;
 }
 
 .faq-answer p {
@@ -1543,7 +1538,7 @@ p {
   inset: 0;
   background-image: url("./assets/images/textures/noise.webp");
   background-size: 520px;
-  opacity: 0.035;
+  opacity: 0.025;
   pointer-events: none;
 }
 
@@ -1615,7 +1610,7 @@ p {
 .contact-social:focus-visible {
   transform: translateY(-4px);
   border-color: rgba(185, 154, 99, 0.22);
-  box-shadow: 0 24px 58px rgba(23, 32, 27, 0.09);
+  box-shadow: 0 16px 38px rgba(23, 32, 27, 0.07);
 }
 
 .contact-social__icon {
@@ -1680,7 +1675,7 @@ p {
 .contact-social:hover,
 .contact-social:focus-visible,
 .therapy-steps article:hover {
-  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.045);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.035);
 }
 
 .contact-social--whatsapp {
@@ -1724,7 +1719,7 @@ p {
   inset: 0;
   background-image: url("./assets/images/textures/noise.webp");
   background-size: 520px;
-  opacity: 0.03;
+  opacity: 0.022;
   pointer-events: none;
 }
 
@@ -1807,7 +1802,7 @@ p {
     var(--color-petrol),
     var(--color-sage-deep)
   );
-  box-shadow: 0 14px 34px rgba(36, 48, 41, 0.24);
+  box-shadow: 0 10px 26px rgba(36, 48, 41, 0.2);
   transition:
     transform var(--transition),
     box-shadow var(--transition);
@@ -1816,7 +1811,7 @@ p {
 .whatsapp-float:hover,
 .whatsapp-float:focus-visible {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 18px 42px rgba(36, 48, 41, 0.3);
+  box-shadow: 0 14px 32px rgba(36, 48, 41, 0.24);
 }
 
 .whatsapp-float img {
@@ -1826,7 +1821,7 @@ p {
 
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(16px);
   transition:
     opacity var(--transition-slow),
     transform var(--transition-slow);
@@ -1838,11 +1833,11 @@ p {
 }
 
 .reveal-hero {
-  transform: translateY(18px);
+  transform: translateY(12px);
 }
 
 .reveal-visual {
-  transform: translateY(28px) scale(0.985);
+  transform: translateY(18px) scale(0.99);
 }
 
 .reveal-visual.visible {
@@ -1935,6 +1930,63 @@ p {
   width: 240px;
   height: 1px;
   background: linear-gradient(90deg, rgba(185, 154, 99, 0.62), transparent);
+}
+
+/* ===== V3 Performance Rendering Layer ===== */
+
+.specialties-grid,
+.benefits-grid,
+.testimonials-grid,
+.faq-list,
+.contact-socials,
+.therapy-steps,
+.authority-highlights {
+  contain: layout paint;
+}
+
+.specialty-card,
+.benefit-card,
+.testimonial-card,
+.faq-item,
+.contact-social,
+.therapy-steps article,
+.hero-proof article,
+.hero-pain-map article,
+.authority-highlights article {
+  contain: layout paint;
+  backface-visibility: hidden;
+}
+
+.about-image-shell,
+.therapy-image__shell,
+.authority-image,
+.final-cta-box,
+.contact-image {
+  contain: layout paint;
+}
+
+.hero__light,
+.hero__grain {
+  will-change: auto;
+}
+
+.site-header.scrolled .header-wrapper,
+.header-wrapper,
+.hero-card,
+.contact-social__icon {
+  -webkit-backdrop-filter: none;
+}
+
+@supports (content-visibility: auto) {
+  .specialty-card,
+  .benefit-card,
+  .testimonial-card,
+  .faq-item,
+  .contact-social,
+  .therapy-steps article,
+  .authority-highlights article {
+    content-visibility: auto;
+  }
 }
 
 @media (max-width: 1120px) {
@@ -2457,9 +2509,14 @@ p {
     transform: none;
   }
 
-  .hero__bg {
+  .hero__bg,
+  .hero__light {
     transform: none !important;
     will-change: auto !important;
+  }
+
+  .loader__icon {
+    animation: none !important;
   }
 }
 /* ===== WhatsApp Float Reveal Fix ===== */
@@ -2481,4 +2538,10 @@ p {
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0) scale(1);
+}
+/* ===== Safari Backdrop Filter Compatibility Fix ===== */
+
+.site-header .header-wrapper {
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
 }
