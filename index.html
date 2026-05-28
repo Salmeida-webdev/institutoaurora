@@ -26,7 +26,7 @@
     />
     <meta
       property="og:description"
-      content="O espaço seguro que sua mente precisa para reencontrar equilíbrio, clareza e leveza."
+      content="Psicoterapia online para ansiedade, exaustão e autocobrança. Um espaço seguro para reencontrar equilíbrio, clareza e leveza."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://institutopsiaurora.netlify.app/" />
@@ -40,7 +40,7 @@
     />
     <meta
       name="twitter:description"
-      content="Psicoterapia online com acolhimento, profundidade emocional e experiência premium."
+      content="Psicoterapia online para ansiedade, exaustão e autocobrança, com acolhimento, sigilo e experiência premium."
     />
     <meta name="twitter:image" content="./assets/images/seo/og-cover.webp" />
 
@@ -58,8 +58,8 @@
     <link
       rel="preload"
       as="image"
-      href="./assets/images/hero/hero-aurora-mobile.webp"
-      imagesrcset="./assets/images/hero/hero-aurora-mobile.webp 640w, ./assets/images/hero/hero-aurora-tablet.webp 1024w, ./assets/images/hero/hero-aurora.webp 1535w"
+      href="./assets/images/hero/hero-aurora-mobile.avif"
+      imagesrcset="./assets/images/hero/hero-aurora-mobile.avif 700w, ./assets/images/hero/hero-aurora-tablet.avif 1200w, ./assets/images/hero/hero-aurora.avif 1920w"
       imagesizes="(max-width: 640px) 92vw, (max-width: 1024px) 82vw, 42vw"
       fetchpriority="high"
     />
@@ -217,10 +217,28 @@
               </h1>
 
               <p>
-                Psicoterapia online com acolhimento, profundidade emocional e
-                uma experiência digital refinada para quem deseja reduzir
-                ansiedade, reorganizar emoções e viver com mais clareza.
+                Psicoterapia online para quem sente que a ansiedade, a exaustão
+                ou a autocobrança começaram a ocupar espaço demais na rotina. Um
+                acompanhamento acolhedor para reorganizar emoções e voltar a
+                viver com mais clareza.
               </p>
+
+              <div
+                class="hero-pain-map"
+                aria-label="Principais dores acolhidas"
+              >
+                <article>
+                  <span>Ansiedade</span>
+                </article>
+
+                <article>
+                  <span>Exaustão</span>
+                </article>
+
+                <article>
+                  <span>Autocobrança</span>
+                </article>
+              </div>
 
               <div class="hero-actions">
                 <a
@@ -265,17 +283,30 @@
               <div class="hero-visual__frame">
                 <picture>
                   <source
+                    type="image/avif"
                     media="(max-width: 640px)"
-                    srcset="./assets/images/hero/hero-aurora-mobile.webp"
+                    srcset="./assets/images/hero/hero-aurora-mobile.avif"
                   />
 
                   <source
+                    type="image/avif"
                     media="(max-width: 1024px)"
-                    srcset="./assets/images/hero/hero-aurora-tablet.webp"
+                    srcset="./assets/images/hero/hero-aurora-tablet.avif"
+                  />
+
+                  <source
+                    type="image/avif"
+                    srcset="./assets/images/hero/hero-aurora.avif"
                   />
 
                   <img
-                    src="./assets/images/hero/hero-aurora.webp"
+                    src="./assets/images/hero/hero-aurora.avif"
+                    srcset="
+                      ./assets/images/hero/hero-aurora-mobile.avif  700w,
+                      ./assets/images/hero/hero-aurora-tablet.avif 1200w,
+                      ./assets/images/hero/hero-aurora.avif        1920w
+                    "
+                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 82vw, 42vw"
                     alt="Ambiente acolhedor e sofisticado representando terapia online"
                     class="hero-image"
                     width="680"

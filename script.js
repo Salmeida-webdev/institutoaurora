@@ -7,53 +7,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealElements = document.querySelectorAll(".reveal");
   const faqItems = document.querySelectorAll(".faq-item");
   const heroBg = document.querySelector(".hero__bg");
+  const whatsappFloat = document.querySelector(".whatsapp-float");
+  const heroSection = document.querySelector(".hero");
 
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const prefersReducedMotion = () => motionQuery.matches;
 
   const isMobile = () => window.innerWidth <= 640;
+  const canUseMotion = () => !prefersReducedMotion() && !isMobile();
+  const canUseParallax = () =>
+    !prefersReducedMotion() && window.innerWidth >= 1024;
 
   const hideLoader = () => {
     if (!loader) return;
     loader.classList.add("hide");
   };
 
-  window.addEventListener(
-    "load",
-    () => {
-      window.requestAnimationFrame(() => {
-        setTimeout(hideLoader, 80);
-      });
-    },
-    { once: true },
-  );
-
-  setTimeout(hideLoader, 1200);
-
-  const handleHeader = () => {
-    if (!header) return;
-    header.classList.toggle("scrolled", window.scrollY > 20);
+  const revealImmediately = () => {
+    revealElements.forEach((element) => {
+      element.classList.add("visible");
+      element.style.transitionDelay = "0ms";
+    });
   };
-
-  handleHeader();
-
-  let headerTicking = false;
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (headerTicking) return;
-
-      headerTicking = true;
-
-      window.requestAnimationFrame(() => {
-        handleHeader();
-        headerTicking = false;
-      });
-    },
-    { passive: true },
-  );
 
   const closeMenu = () => {
     if (!siteNav || !menuToggle) return;
@@ -73,15 +48,71 @@ document.addEventListener("DOMContentLoaded", () => {
     menuToggle.setAttribute("aria-label", "Fechar menu");
   };
 
+  const handleHeader = () => {
+    if (!header) return;
+    header.classList.toggle("scrolled", window.scrollY > 20);
+  };
+
+  const handleWhatsappVisibility = () => {
+    if (!whatsappFloat) return;
+
+    const heroHeight = heroSection
+      ? heroSection.offsetHeight
+      : window.innerHeight * 0.82;
+
+    whatsappFloat.classList.toggle(
+      "is-visible",
+      window.scrollY > heroHeight * 0.72,
+    );
+  };
+
+  const handleParallax = () => {
+    if (!heroBg) return;
+
+    if (!canUseParallax()) {
+      heroBg.style.transform = "";
+      return;
+    }
+
+    const offset = Math.min(window.scrollY * 0.045, 36);
+    heroBg.style.transform = `translate3d(0, ${offset}px, 0)`;
+  };
+
+  const handleScrollWork = () => {
+    handleHeader();
+    handleWhatsappVisibility();
+    handleParallax();
+  };
+
+  let scrollTicking = false;
+
+  const onScroll = () => {
+    if (scrollTicking) return;
+
+    scrollTicking = true;
+
+    window.requestAnimationFrame(() => {
+      handleScrollWork();
+      scrollTicking = false;
+    });
+  };
+
+  window.addEventListener(
+    "load",
+    () => {
+      window.requestAnimationFrame(() => {
+        setTimeout(hideLoader, 80);
+      });
+    },
+    { once: true },
+  );
+
+  setTimeout(hideLoader, 1100);
+
   if (menuToggle && siteNav) {
     menuToggle.addEventListener("click", () => {
       const isOpen = siteNav.classList.contains("active");
-
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      isOpen ? closeMenu() : openMenu();
     });
 
     navLinks.forEach((link) => {
@@ -89,9 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeMenu();
-      }
+      if (event.key === "Escape") closeMenu();
     });
 
     document.addEventListener("click", (event) => {
@@ -103,41 +132,37 @@ document.addEventListener("DOMContentLoaded", () => {
       const clickedInsideMenu = siteNav.contains(target);
       const clickedToggle = menuToggle.contains(target);
 
-      if (!clickedInsideMenu && !clickedToggle) {
-        closeMenu();
-      }
+      if (!clickedInsideMenu && !clickedToggle) closeMenu();
     });
   }
 
-  const revealImmediately = () => {
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-      element.style.transitionDelay = "0ms";
-    });
-  };
-
-  if (
-    "IntersectionObserver" in window &&
-    !prefersReducedMotion &&
-    !isMobile()
-  ) {
+  if ("IntersectionObserver" in window && canUseMotion()) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
 
+          const section = entry.target.closest("section");
+          const sectionReveals = section
+            ? Array.from(section.querySelectorAll(".reveal"))
+            : Array.from(revealElements);
+
+          const index = sectionReveals.indexOf(entry.target);
+          const delay = Math.min(Math.max(index, 0) * 70, 280);
+
+          entry.target.style.transitionDelay = `${delay}ms`;
           entry.target.classList.add("visible");
+
           observer.unobserve(entry.target);
         });
       },
       {
         threshold: 0.12,
-        rootMargin: "0px 0px -48px 0px",
+        rootMargin: "0px 0px -56px 0px",
       },
     );
 
-    revealElements.forEach((element, index) => {
-      element.style.transitionDelay = `${Math.min(index * 28, 180)}ms`;
+    revealElements.forEach((element) => {
       revealObserver.observe(element);
     });
   } else {
@@ -165,24 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
-  let parallaxTicking = false;
-
-  const handleParallax = () => {
-    if (!heroBg || prefersReducedMotion || window.innerWidth < 1024) return;
-
-    if (parallaxTicking) return;
-
-    parallaxTicking = true;
-
-    window.requestAnimationFrame(() => {
-      const offset = Math.min(window.scrollY * 0.045, 36);
-      heroBg.style.transform = `translate3d(0, ${offset}px, 0)`;
-      parallaxTicking = false;
-    });
-  };
-
-  window.addEventListener("scroll", handleParallax, { passive: true });
 
   document.querySelectorAll("img").forEach((img) => {
     if (img.complete) {
@@ -215,19 +222,39 @@ document.addEventListener("DOMContentLoaded", () => {
       clearTimeout(resizeTimer);
 
       resizeTimer = setTimeout(() => {
-        if (window.innerWidth > 920) {
-          closeMenu();
-        }
+        if (window.innerWidth > 920) closeMenu();
 
-        if (window.innerWidth < 1024 && heroBg) {
+        if (!canUseParallax() && heroBg) {
           heroBg.style.transform = "";
         }
 
-        if (isMobile()) {
+        if (!canUseMotion()) {
           revealImmediately();
         }
+
+        handleWhatsappVisibility();
       }, 120);
     },
     { passive: true },
   );
+
+  const handleMotionChange = () => {
+    if (!prefersReducedMotion()) return;
+
+    revealImmediately();
+
+    if (heroBg) {
+      heroBg.style.transform = "";
+    }
+  };
+
+  if (typeof motionQuery.addEventListener === "function") {
+    motionQuery.addEventListener("change", handleMotionChange);
+  } else if (typeof motionQuery.addListener === "function") {
+    motionQuery.addListener(handleMotionChange);
+  }
+
+  handleScrollWork();
+
+  window.addEventListener("scroll", onScroll, { passive: true });
 });
